@@ -23,7 +23,8 @@ const Dashboard = () => {
       <div className='flex flex-col w-full'>
       <div className='h-[70px] border-b-2 border-b-stone-300 w-full  flex flex-row items-center'>
              <img className="block lg:hidden w-6 h-6 cursor-pointer" src={navtoggle} alt="nav toggle" onClick={() => setShowSideBar(true)} />
-             <span className='ml-4  text-2xl'>Dashboard</span>
+             <span className='ml-4  text-xl'>Dashboard</span>
+             
 
           </div>
           

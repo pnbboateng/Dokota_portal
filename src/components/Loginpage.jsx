@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import logo from "../assets/Dokota_new.png"
 import doctor from "../assets/woman_doctor.jpg"
 import { Link } from 'react-router-dom'
@@ -20,7 +21,7 @@ const Loginpage = () => {
 
     if (email === validEmail) {
       setError(""); // Clear any previous error
-      window.location.href = "/dashboard"; // Navigate to dashboard
+      window.location.href = "/otp"; // Navigate to dashboard
     } else {
       setError("Invalid email"); // Show error message
     }
