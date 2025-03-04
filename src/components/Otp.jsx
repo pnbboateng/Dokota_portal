@@ -12,7 +12,7 @@ const Otp = () => {
   const [error, setError] = useState(""); // Store validation error
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const correctOTP = "123456"; // Temporary correct OTP
+  const correctOTP = "1234"; // Temporary correct OTP
 
   // Handle OTP input change
   const handleChange = (value) => {
@@ -35,36 +35,43 @@ const Otp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="flex flex-col items-center">
-        <div className="w-64 h-25">
+        {/* Logo */}
+        <div className="w-64 h-25 mb-6">
           <img src={logo} alt="logo" className="w-full h-full object-contain" />
         </div>
 
-        <div className="flex flex-col items-center border-2 border-gray-100 rounded-lg p-8">
-          <div className="mb-6">
-            <span className="text-sm">Enter your 6-Digit OTP sent to your mobile number</span>
+        {/* OTP Box */}
+        <div className="flex flex-col items-center border-2 border-gray-200 bg-white rounded-lg p-8 shadow-lg">
+          <div className="mb-6 text-center">
+            <span className="text-sm text-gray-600 font-medium">
+              Enter your 6-Digit OTP sent to your mobile number
+            </span>
           </div>
 
+          {/* OTP Input Fields */}
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
-            <InputOTP maxLength={6} value={otp} onChange={handleChange}>
-              <InputOTPGroup>
-                {[...Array(6)].map((_, index) => (
+            <InputOTP maxLength={4} value={otp} onChange={handleChange}>
+              <InputOTPGroup className="flex gap-4"> 
+                {[...Array(4)].map((_, index) => (
                   <InputOTPSlot 
                     key={index} 
                     index={index} 
-                    className="border-rose-950 focus:ring-rose-950"
+                    className="w-12 h-12 text-xl text-center border-2 border-gray-300 rounded-md focus:ring-2 focus:outline focus:outline-sky-500 focus:ring-rose-700 outline-none transition-all"
                     onKeyDown={(e) => !/^\d$/.test(e.key) && e.preventDefault()} // Allow only numbers
                   />
                 ))}
               </InputOTPGroup>
             </InputOTP>
 
+            {/* Error Message */}
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
+            {/* Submit Button */}
             <button 
               type="submit" 
-              className="w-64 bg-rose-700 text-white py-2 rounded-md hover:bg-rose-950 cursor-pointer mt-4"
+              className="w-64 bg-rose-700 text-white py-2 rounded-md hover:bg-rose-950 cursor-pointer mt-6 transition-all"
             >
               Verify
             </button>

@@ -3,10 +3,14 @@ import navtoggle from "../assets/toggle.svg"
 import logo from "../assets/Dokota_newtoo.png"
 import creditcard from "../assets/credit-card.svg"
 import React from 'react'
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidenav = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
     
-
+  // Check if the user is on the dashboard page
+  const isActive = location.pathname === "/dashboard";
   return (
     <div>
       <div 
@@ -16,9 +20,28 @@ const Sidenav = (props) => {
             >
            <div className='h-[110px] bg-white rounded-full w-[110px] border-b-stone-300 mt-1 px-2 flex items-center '><img className='w-full' src={logo} alt="logo" /></div>
            <hr className='w-full mt-4 h-[2px] bg-stone-300' />
-           <div className='group flex gap-4 mt-6 cursor-pointer hover:bg-[#07131c] rounded-lg w-full p-3'><svg width="22" height="24" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.17962 25.6978V21.6208C9.17962 20.5801 10.0295 19.7364 11.0778 19.7364H14.9101C15.4135 19.7364 15.8963 19.9349 16.2523 20.2883C16.6083 20.6417 16.8083 21.121 16.8083 21.6208V25.6978C16.8051 26.1305 16.976 26.5465 17.2831 26.8536C17.5902 27.1606 18.008 27.3333 18.4438 27.3333H21.0584C22.2794 27.3365 23.4516 26.8571 24.3161 26.0011C25.1807 25.145 25.6666 23.9826 25.6666 22.7704V11.1558C25.6666 10.1766 25.2293 9.24778 24.4727 8.61955L15.5786 1.56782C14.0315 0.331405 11.8147 0.371326 10.3138 1.66263L1.6226 8.61955C0.830239 9.22926 0.356655 10.1608 0.333252 11.1558V22.7586C0.333252 25.2851 2.39643 27.3333 4.94148 27.3333H7.49631C8.40155 27.3333 9.13725 26.6083 9.14381 25.7096L9.17962 25.6978Z" className="group-hover:fill-white transition-colors duration-300" fill="white"/>
-              </svg> <span className='text-[#ffffff]'>Dashboard</span></div>
+           <div
+        className={`group flex gap-4 mt-6 cursor-pointer rounded-lg w-full p-3 transition-colors duration-300 
+          ${isActive ? "bg-[#07131c]" : "hover:bg-[#07131c]"}`} // Active state matches hover state
+        onClick={() => navigate("/dashboard")} // Navigate to dashboard on click
+      >
+        <svg
+          width="22"
+          height="24"
+          viewBox="0 0 26 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.17962 25.6978V21.6208C9.17962 20.5801 10.0295 19.7364 11.0778 19.7364H14.9101C15.4135 19.7364 15.8963 19.9349 16.2523 20.2883C16.6083 20.6417 16.8083 21.121 16.8083 21.6208V25.6978C16.8051 26.1305 16.976 26.5465 17.2831 26.8536C17.5902 27.1606 18.008 27.3333 18.4438 27.3333H21.0584C22.2794 27.3365 23.4516 26.8571 24.3161 26.0011C25.1807 25.145 25.6666 23.9826 25.6666 22.7704V11.1558C25.6666 10.1766 25.2293 9.24778 24.4727 8.61955L15.5786 1.56782C14.0315 0.331405 11.8147 0.371326 10.3138 1.66263L1.6226 8.61955C0.830239 9.22926 0.356655 10.1608 0.333252 11.1558V22.7586C0.333252 25.2851 2.39643 27.3333 4.94148 27.3333H7.49631C8.40155 27.3333 9.13725 26.6083 9.14381 25.7096L9.17962 25.6978Z"
+            className={`transition-colors duration-300 ${
+              isActive ? "fill-white" : "group-hover:fill-white"
+            }`}
+            fill="white"
+          />
+        </svg>
+        <span className="text-[#ffffff]">Dashboard</span>
+      </div>
       
               <div className='group flex gap-4 cursor-pointer hover:bg-[#07131c]  rounded-lg w-full p-3'><svg fill="white" height="22px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511 511" xml:space="preserve">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
