@@ -1,31 +1,10 @@
 import React from 'react'
 import navtoggle from "../assets/toggle.svg"
-import logo from "../assets/Dokota_newtoo.png"
-import creditcard from "../assets/credit-card.svg"
 import Sidenav from '@/components/Sidenav'
-import { useLocation } from 'react-router-dom';
 "use client";
-import { BarChart, Bar } from "recharts";
-import { useMemo } from "react";
-import { Pie, PieChart } from "recharts";
 
-
-import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import Trend from '@/components/Trend'
+import Piechart from '@/components/Piechart'
 
 
 const chartData = [
@@ -49,9 +28,7 @@ const chartConfig = {
 const Dashboard = () => {
    const[showSideBar, setShowSideBar] = React.useState(false)
 
-   const totalVisitors = useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+   
    
 
   return (
@@ -75,103 +52,12 @@ const Dashboard = () => {
           </div>
           <div className='flex flex-col overflow-y-auto '>
           <div class="grid grid-cols-2 gap-x-6 gap-y-6 p-4">
-  <div> <Card className="max-w-xxl">
-      <CardHeader>
-        <CardTitle>Onboarding - Doctors & Patients</CardTitle>
-        <CardDescription>
-          Showing total onboarded for the last 6 months
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            width={300}
-            height={180}
-            accessibilityLayer
-            data={chartData}
-            margin={{ left: 8, right: 8, top: 5, bottom: 5 }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={6}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            {Object.entries(chartConfig).map(([key, { color }]) => (
-              <Area
-                key={key}
-                dataKey={key}
-                type="natural"
-                fill={color}
-                fillOpacity={0.4}
-                stroke={color}
-                stackId="a"
-              />
-            ))}
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter>
-    </Card>
+  <div> 
+    <Trend />
   </div>
-  <div><Card className="max-w-xxl">
-      <CardHeader>
-        <CardTitle>Payments - Doctors & Patients</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            width={300}
-            height={180}
-            accessibilityLayer
-            data={chartData}
-            margin={{ left: 8, right: 8, top: 5, bottom: 5 }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={6}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
-            {Object.entries(chartConfig).map(([key, { color }]) => (
-              <Bar key={key} dataKey={key} fill={color} radius={4} />
-            ))}
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card></div>
+  <div>
+    <Piechart />
+  </div>
   
 </div>
 

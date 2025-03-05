@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Login from './pages/Login'
 import { Routes, Route, Navigate} from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
-import Otp from './components/otp'
+import Otp from './pages/Otp'
 
 
 
