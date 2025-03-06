@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Otp from './pages/Otp'
 import Payments from './components/Payments'
 import Dashboardcontent from './components/Dashboardcontent'
+import Approvals from './components/Approvals'
 
 
 
@@ -19,8 +20,9 @@ function App() {
     <Route path="/login" element={<Login/>} />
     <Route path="/otp" element={<Otp/>} />
     <Route path='/app' element={<Dashboard />}>
-    <Route path="dashboard" element={<Dashboardcontent />} /> {/* Nested route */}
-        <Route path="payments" element={<Payments />} /> {/* Nested route */}
+    <Route path="dashboard" element={<Dashboardcontent />} /> 
+        <Route path="payments" element={<Payments />} /> 
+        <Route path="approvals" element={<Approvals />} /> 
       </Route>
    
     </Routes>

@@ -44,7 +44,7 @@ const Dashboard = () => {
           {pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>}
         </div>
 
-        <div className="flex flex-col overflow-y-auto">
+        <div className="flex flex-col h-full overflow-y-auto">
         <Outlet />
 
         </div>
