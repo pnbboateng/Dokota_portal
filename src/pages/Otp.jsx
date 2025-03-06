@@ -28,7 +28,7 @@ const Otp = () => {
     
     if (otp === correctOTP) {
       setError("");
-      navigate("/dashboard"); // Redirect to dashboard if OTP is correct
+      navigate("/app/dashboard"); // Redirect to dashboard if OTP is correct
     } else {
       setError("Invalid OTP. Please try again.");
     }
