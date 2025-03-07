@@ -7,6 +7,7 @@ import Otp from './pages/Otp'
 import Payments from './components/Payments'
 import Dashboardcontent from './components/Dashboardcontent'
 import Approvals from './components/Approvals'
+import UsersPage from './components/UsersPage'
 
 
 
@@ -23,6 +24,9 @@ function App() {
     <Route path="dashboard" element={<Dashboardcontent />} /> 
         <Route path="payments" element={<Payments />} /> 
         <Route path="approvals" element={<Approvals />} /> 
+        <Route path="users" element={<UsersPage />} /> 
+        
+        
       </Route>
    
     </Routes>

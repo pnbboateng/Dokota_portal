@@ -75,6 +75,42 @@ const PaymentTable = () => {
           customerName:"John Boakye",
           customerNumber: "233548359582"
         },
+        {
+            invoice: "INV007",
+            paymentStatus: "Unpaid",
+            totalAmount: "$2500.00",
+            paymentMethod: "Credit Card",
+            date: "05 March 2025, 8:46 PM",
+            customerName:"Emmanuel Kwakye",
+            customerNumber: "233548359582"
+          },
+          {
+            invoice: "INV007",
+            paymentStatus: "Paid",
+            totalAmount: "$300.00",
+            paymentMethod: "Credit Card",
+            date: "05 March 2025, 8:46 PM",
+            customerName:"Andrew Korang",
+            customerNumber: "233548359582"
+          },
+          {
+            invoice: "INV007",
+            paymentStatus: "Unpaid",
+            totalAmount: "$100.00",
+            paymentMethod: "Mobile Money",
+            date: "05 March 2025, 8:46 PM",
+            customerName:"Prince Tagoe",
+            customerNumber: "233548359582"
+          },
+          {
+            invoice: "INV007",
+            paymentStatus: "Unpaid",
+            totalAmount: "$300.00",
+            paymentMethod: "USSD",
+            date: "05 March 2025, 8:46 PM",
+            customerName:"Kwadwo Oteng",
+            customerNumber: "233548359582"
+          },
       ]
   return (
     <div>
@@ -94,14 +130,14 @@ const PaymentTable = () => {
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
+          <TableRow key={invoice.invoice} >
             <TableCell>{invoice.date}</TableCell>
             <TableCell className={invoice.paymentStatus === "Paid" ? "text-green-700" : "text-rose-900"}>{invoice.paymentStatus}</TableCell>
             <TableCell className="font-medium">{invoice.invoice}</TableCell>
             <TableCell >{invoice.totalAmount}</TableCell>
             <TableCell>{invoice.paymentMethod}</TableCell>
             <TableCell>{invoice.customerName}</TableCell>
-            <TableCell>{invoice.customerNumber}</TableCell>
+            <TableCell >{invoice.customerNumber}</TableCell>
             
             
           </TableRow>

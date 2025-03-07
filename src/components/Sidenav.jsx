@@ -17,7 +17,7 @@ const Sidenav = (props) => {
   return (
     <div>
       <div 
-                    className={`fixed lg:relative top-0  left-0 h-full w-[260px] bg-rose-950 shadow-xl z-20 flex flex-col transform transition-transform duration-300 lg:translate-x-0 ${
+                    className={`fixed lg:relative top-0  left-0 h-full w-[260px] bg-rose-950 shadow-xl flex flex-col transform transition-transform duration-300 lg:translate-x-0  ${
                       props.showSideBar ? "translate-x-0" : "-translate-x-full px-4 items-center "
                     }`}
                   >
