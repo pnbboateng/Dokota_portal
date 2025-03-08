@@ -109,8 +109,8 @@ const PaymentTable = () => {
       </div>
 
       {/* Data Table */}
-      <Table>
-        <TableHeader>
+      <Table >
+        <TableHeader className="bg-slate-200 rounded-t-lg ">
           <TableRow>
             {table.getHeaderGroups().map((headerGroup) =>
               headerGroup.headers.map((header) => (
