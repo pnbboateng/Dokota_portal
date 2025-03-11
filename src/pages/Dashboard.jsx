@@ -37,7 +37,7 @@ const Dashboard = () => {
                     }`}
                   >
                 
-                 <div className='h-[110px] bg-white rounded-full mt-4 w-[110px] border-b-stone-300 mt-1 px-2 flex justify-start items-center '><img className='w-full' src={logo} alt="logo" /></div>
+                 <div className='h-[110px] bg-white rounded-full mt-4 w-[110px] border-b-stone-300  px-2 flex justify-start items-center '><img className='w-full' src={logo} alt="logo" /></div>
 
 
                  <hr className='w-full mt-4 h-[2px] bg-stone-300' />
