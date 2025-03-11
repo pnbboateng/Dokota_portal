@@ -34,13 +34,14 @@ const Dashboard = () => {
                       showSideBar ? "translate-x-0" : "-translate-x-full px-4 items-center "
                     }`}
                   >
-                 <div className='h-[110px] bg-white rounded-full w-[110px] border-b-stone-300 mt-1 px-2 flex items-center '><img className='w-full' src={logo} alt="logo" /></div>
+                
+                 <div className='h-[110px] bg-white rounded-full w-[110px] border-b-stone-300 mt-1 px-2 flex justify-start items-center '><img className='w-full' src={logo} alt="logo" /></div>
 
 
                  <hr className='w-full mt-4 h-[2px] bg-stone-300' />
 
 
-
+                <div className="w-full flex-1">
                  <Link to="dashboard" className="block w-full"><div
               className={`group flex gap-4 mt-6 cursor-pointer rounded-lg w-full p-3 transition-colors duration-300 
                 ${isDashboardActive ? "bg-[#07131c]" : "hover:bg-[#07131c]"}`} // Active state matches hover state
@@ -109,6 +110,27 @@ const Dashboard = () => {
       </g>
     </svg>
                       <span className='text-[#ffffff]'>Users</span></div></Link>
+                      </div>
+
+
+        <div className="w-full justify-end">
+
+        <Link to="users" className="block w-full"><div className={`group flex mb-4 gap-4 cursor-pointer mt-1 hover:bg-[#07131c] rounded-lg w-full p-3 ${isUsersActive ? "bg-[#07131c]" : "" }`}><svg
+      height="22px"
+      width="24px"
+      viewBox="0 0 60.671 60.671"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="white"
+    >
+      <g>
+        <ellipse cx="30.336" cy="12.097" rx="11.997" ry="12.097" />
+        <path d="M35.64,30.079H25.031c-7.021,0-12.714,5.739-12.714,12.821v17.771h36.037V42.9 C48.354,35.818,42.661,30.079,35.64,30.079z" />
+      </g>
+    </svg>
+                      <span className='text-[#ffffff]'>Users</span></div></Link>
+
+
+        </div>
                       
                       
       
