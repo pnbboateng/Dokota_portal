@@ -8,6 +8,7 @@ import Payments from './components/Payments'
 import Dashboardcontent from './components/Dashboardcontent'
 import Approvals from './components/Approvals'
 import UsersPage from './components/UsersPage'
+import Settings from './components/Settings'
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="payments" element={<Payments />} /> 
         <Route path="approvals" element={<Approvals />} /> 
         <Route path="users" element={<UsersPage />} /> 
+        <Route path="settings" element={<Settings />} />
         
         
       </Route>
