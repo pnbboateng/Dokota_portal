@@ -1,122 +1,205 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useMemo } from "react";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
-const Approvals = () => {
+const approvals = [
+  { id: "DOC001", name: "Dr. John Doe", specialty: "Cardiology", status: "Pending", submittedOn: "05 March 2025" },
+  { id: "DOC002", name: "Dr. Jane Smith", specialty: "Neurology", status: "Pending", submittedOn: "06 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Approved", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Rejected", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+  { id: "DOC003", name: "Dr. Mark Taylor", specialty: "Dermatology", status: "Pending", submittedOn: "07 March 2025" },
+];
+
+const ApprovalsTable = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [filteredData, setFilteredData] = useState(approvals);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-      date: "05 March 2025, 8:46 PM",
-      customerName: "John Boakye",
-      customerNumber: "233548359582",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-      date: "05 March 2025, 8:46 PM",
-      customerName: "Attah Mensah",
-      customerNumber: "233548359582",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-      date: "05 March 2025, 8:46 PM",
-      customerName: "Philip Boateng",
-      customerNumber: "233548359582",
-    },
-  ];
-
-  const openModal = (doctor) => {
-    setSelectedDoctor(doctor);
-    setIsOpen(true);
+  
+  const handleSearch = () => {
+    const query = searchQuery.trim().toLowerCase();
+    setFilteredData(
+      approvals.filter(
+        (approval) =>
+          (query === "" || approval.name.toLowerCase().includes(query)) &&
+          (statusFilter === "all" || approval.status === statusFilter)
+      )
+    );
   };
 
+  const columns = useMemo(() => [
+    { accessorKey: "submittedOn", header: "Submitted On" },
+    { accessorKey: "name", header: "Doctor Name" },
+    { accessorKey: "specialty", header: "Specialty" },
+    { accessorKey: "status", header: "Status" },
+    { accessorKey: "actions", header: "Actions", cell: ({ row }) => (
+        <Button className="bg-rose-950 text-white" onClick={() => setSelectedDoctor(row.original)}>View</Button>
+      )
+    }
+  ], []);
+
+  const table = useReactTable({
+    data: filteredData,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 12 } },
+  });
+
   return (
-    <div className="mt-4 ml-4 mr-4 mb-4 border-2 border-b-stone-300 rounded-lg h-min-full">
+    <div className='mt-4 ml-4 mr-4 mb-4 border-2 border-b-stone-300 rounded-lg h-min-full'>
+    <div className="space-y-4 mt-4 ml-4 mr-4 mb-4">
+      <div className="flex items-center gap-4">
+        <Input placeholder="Search by doctor name..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-1/3" />
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Filter by status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="Pending">Pending</SelectItem>
+            <SelectItem value="Approved">Approved</SelectItem>
+            <SelectItem value="Rejected">Rejected</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button className="bg-rose-950 text-white" onClick={handleSearch}>Search</Button>
+        <Button variant="outline" onClick={() => { setSearchQuery(""); setStatusFilter("all"); setFilteredData(approvals); }}>Reset</Button>
+      </div>
+
       <Table>
-        <TableCaption>A list of pending doctor approvals.</TableCaption>
         <TableHeader className="bg-slate-200">
           <TableRow>
-            <TableHead className="text-stone-950 font-bold">Date</TableHead>
-            <TableHead className="text-stone-950 font-bold">Status</TableHead>
-            <TableHead className="text-stone-950 font-bold">Reference</TableHead>
-            <TableHead className="text-stone-950 font-bold">Amount</TableHead>
-            <TableHead className="text-stone-950 font-bold">Payment Method</TableHead>
-            <TableHead className="text-stone-950 font-bold">Customer Name</TableHead>
-            <TableHead className="text-stone-950 font-bold">Customer Number</TableHead>
-            <TableHead className="text-stone-950 font-bold text-right">Actions</TableHead>
+            {table.getHeaderGroups().map((headerGroup) =>
+              headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))
+            )}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice} className="cursor-pointer hover:bg-gray-100" onClick={() => openModal(invoice)}>
-              <TableCell>{invoice.date}</TableCell>
-              <TableCell className={invoice.paymentStatus === "Paid" ? "text-green-700" : "text-rose-900"}>
-                {invoice.paymentStatus}
-              </TableCell>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.totalAmount}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell>{invoice.customerName}</TableCell>
-              <TableCell>{invoice.customerNumber}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); openModal(invoice); }}>
-                  View
-                </Button>
-              </TableCell>
+          {table.getRowModel().rows.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id} className="cursor-pointer" onClick={() => setSelectedDoctor(row.original)}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center">No results found.</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
 
-      
-
-      {/* Modal */}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog open={!!selectedDoctor} onOpenChange={() => setSelectedDoctor(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Doctor Details</DialogTitle>
+            <DialogTitle>Doctor Approval</DialogTitle>
           </DialogHeader>
-          <div className="space-y-3">
-            {selectedDoctor && (
-              <>
-                <p><strong>Name:</strong> {selectedDoctor.customerName}</p>
-                <p><strong>Invoice:</strong> {selectedDoctor.invoice}</p>
-                <p><strong>Status:</strong> {selectedDoctor.paymentStatus}</p>
-                <p><strong>Amount:</strong> {selectedDoctor.totalAmount}</p>
-                <p><strong>Payment Method:</strong> {selectedDoctor.paymentMethod}</p>
-                <p><strong>Customer Number:</strong> {selectedDoctor.customerNumber}</p>
-              </>
-            )}
-          </div>
-          <DialogFooter>
-            <Button className="bg-rose-950" variant="destructive" onClick={() => setIsOpen(false)}>Reject</Button>
-            <Button className="bg-green-700 hover:bg-green-500" variant="default" onClick={() => setIsOpen(false)}>Approve</Button>
-          </DialogFooter>
+          {selectedDoctor && (
+            <div className="space-y-4">
+              <p><strong>Name:</strong> {selectedDoctor.name}</p>
+              <p><strong>Specialty:</strong> {selectedDoctor.specialty}</p>
+              <p><strong>Status:</strong> {selectedDoctor.status}</p>
+              <p><strong>Submitted On:</strong> {selectedDoctor.submittedOn}</p>
+              <div className="flex justify-end gap-2">
+                <Button className="bg-green-600 text-white" onClick={() => setSelectedDoctor(null)}>Approve</Button>
+                <Button className="bg-red-600 text-white" onClick={() => setSelectedDoctor(null)}>Reject</Button>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
+      {/* Pagination Controls */}
+            <div className="flex justify-end mt-4">
+        <div className="flex items-center gap-2">
+          {/* First Page */}
+          <Button
+            className="bg-rose-950 text-white w-8 h-8"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronsLeft className="w-4 h-4 text-white" />
+          </Button>
+      
+          {/* Previous Page */}
+          <Button
+            className="bg-rose-950 text-white w-8 h-8"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft className="w-4 h-4 text-white" />
+          </Button>
+      
+          {/* Page Numbers */}
+          {Array.from({ length: table.getPageCount() }, (_, i) => (
+            <Button
+              key={i}
+              className={`w-8 h-8 border ${
+                table.getState().pagination.pageIndex === i
+                  ? "bg-rose-950 text-white border-rose-950" // Selected page
+                  : "bg-white text-rose-950 border-rose-950" // Unselected pages
+              }`}
+              onClick={() => table.setPageIndex(i)}
+            >
+              {i + 1}
+            </Button>
+          ))}
+      
+          {/* Next Page */}
+          <Button
+            className="bg-rose-950 text-white w-8 h-8"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight className="w-4 h-4 text-white" />
+          </Button>
+      
+          {/* Last Page */}
+          <Button
+            className="bg-rose-950 text-white w-8 h-8"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronsRight className="w-4 h-4 text-white" />
+          </Button>
+        </div>
+      </div>
+    </div>
     </div>
   );
 };
 
-export default Approvals;
+export default ApprovalsTable;
