@@ -10,7 +10,6 @@ const pageTitles = {
   "/app/dashboard": "Dashboard",
   "/app/payments": "Payments",
   "/app/approvals": "Approvals",
-  "/app/approvals": "Approvals",
   "/app/users": "Users",
   "/app/settings": "Settings",
   "/app/hidden-page": "",  }
@@ -19,6 +18,7 @@ const pageTitles = {
 const Dashboard = () => {
   const [showSideBar, setShowSideBar] = React.useState(false);
   const location = useLocation();
+  const userName = "Philip Boateng"
   const pageTitle = pageTitles[location.pathname] ?? ""; 
   const isDashboardActive = location.pathname === "/app/dashboard";
   const isPaymentsActive = location.pathname === "/app/payments";
@@ -99,7 +99,8 @@ const Dashboard = () => {
 
 
                       
-                      <Link to="users" className="block w-full"><div className={`group flex  gap-4 cursor-pointer mt-1 hover:bg-[#07131c] rounded-lg w-full p-3 ${isUsersActive ? "bg-[#07131c]" : "" }`}><svg
+                      <Link to="users" className="block w-full"><div className={`group flex  gap-4 cursor-pointer mt-1 hover:bg-[#07131c] rounded-lg w-full p-3 ${isUsersActive ? "bg-[#07131c]" : "" }`}>
+                        <svg
       height="22px"
       width="24px"
       viewBox="0 0 60.671 60.671"
@@ -146,13 +147,37 @@ const Dashboard = () => {
 
       <div className="flex flex-col w-full z-10">
         <div className="h-[70px] border-b-2 border-b-stone-300 w-full flex flex-row items-center">
+          <div className="flex justify-start">
           <img
             className="block lg:hidden w-6 h-6 cursor-pointer"
             src={navtoggle}
             alt="nav toggle"
             onClick={() => setShowSideBar(true)}
-          />
-          {pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>}
+          /></div>
+          <div className="flex flex-1">{pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>}</div>
+
+          <div className="flex  justify-end mr-4 cursor-pointer">
+          <div className="bg-[rgba(255,0,0,0.2)] p-1 rounded-full">
+          <svg 
+            width="24" 
+            height="22" 
+            viewBox="0 0 16 16" 
+            fill="black" 
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"/>
+            <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"/>
+          </svg>
+          </div>
+          <span className="ml-4 pt-1 text-sm flex items-center gap-1">
+  {userName}
+  <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 10l5 5 5-5"></path>
+  </svg>
+</span>
+
+
+
+          </div>
         </div>
 
         <div className="flex flex-col h-full overflow-y-auto z-0">
