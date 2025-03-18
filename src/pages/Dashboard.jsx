@@ -168,7 +168,7 @@ const Dashboard = () => {
             <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"/>
           </svg>
           </div>
-          <span className="ml-4 pt-1 text-sm flex items-center gap-1">
+          <span className="ml-2 pt-1 text-sm flex items-center gap-1">
   {userName}
   <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M7 10l5 5 5-5"></path>
@@ -179,6 +179,7 @@ const Dashboard = () => {
 
           </div>
         </div>
+        
 
         <div className="flex flex-col h-full overflow-y-auto z-0">
         <Outlet />
