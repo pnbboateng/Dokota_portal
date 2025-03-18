@@ -18,7 +18,9 @@ const pageTitles = {
 const Dashboard = () => {
   const [showSideBar, setShowSideBar] = React.useState(false);
   const location = useLocation();
-  const userName = "Philip Boateng"
+  const userName = "Philip Boateng";
+  const userRole= "Super Administrator"
+
   const pageTitle = pageTitles[location.pathname] ?? ""; 
   const isDashboardActive = location.pathname === "/app/dashboard";
   const isPaymentsActive = location.pathname === "/app/payments";
@@ -35,9 +37,9 @@ const Dashboard = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -197,15 +199,17 @@ const Dashboard = () => {
           </div>
         </div>
         <div>{isDropdownOpen && (
-            <div className="absolute right-2 mt-1 w-48 bg-white shadow-lg rounded-md z-50 border">
+            <div className="absolute right-2 mt-1 w-80 bg-white shadow-lg rounded-lg z-50 border">
+              <div className="bg-rose-100  rounded-t-lg border-b-4 border-b-rose-950">
+                <div className="pt-4 pb-4">
+                <span className="px-6 mt-4 text-2xl font-bold text-red-900">{userName}</span>
+                <p className="px-6 text-md text-stone-600">{userRole}</p>
+                </div>
+
+              </div>
               <ul className="py-2 text-gray-700">
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  Profile
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  Settings
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                
+                <li className="px-6 py-2 text-red-600 hover:bg-gray-100 cursor-pointer">
                   Logout
                 </li>
               </ul>
