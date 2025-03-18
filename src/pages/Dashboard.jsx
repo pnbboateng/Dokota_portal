@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/Dokota_newtoo.png"
 import {Link, Outlet, useLocation} from "react-router-dom";
 import navtoggle from "../assets/toggle.svg";
@@ -25,6 +25,23 @@ const Dashboard = () => {
   const isApprovalsActive = location.pathname === "/app/approvals";
   const isUsersActive = location.pathname === "/app/users";
   const isSettingsActive = location.pathname === "/app/settings";
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  
 
   
 
@@ -156,7 +173,7 @@ const Dashboard = () => {
           /></div>
           <div className="flex flex-1">{pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>}</div>
 
-          <div className="flex  justify-end mr-4 cursor-pointer">
+          <div className="flex  justify-end mr-4 cursor-pointer" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
           <div className="bg-[rgba(255,0,0,0.2)] p-1 rounded-full">
           <svg 
             width="24" 
@@ -179,7 +196,21 @@ const Dashboard = () => {
 
           </div>
         </div>
-        
+        <div>{isDropdownOpen && (
+            <div className="absolute right-2 mt-1 w-48 bg-white shadow-lg rounded-md z-50 border">
+              <ul className="py-2 text-gray-700">
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Profile
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Settings
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  Logout
+                </li>
+              </ul>
+            </div>
+          )}</div>
 
         <div className="flex flex-col h-full overflow-y-auto z-0">
         <Outlet />
