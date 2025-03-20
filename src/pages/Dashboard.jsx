@@ -28,7 +28,6 @@ const Dashboard = () => {
   const isUsersActive = location.pathname === "/app/users";
   const isSettingsActive = location.pathname === "/app/settings";
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
   return (
     <div className="flex flex-row h-screen w-screen">
