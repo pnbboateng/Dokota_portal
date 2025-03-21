@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../assets/Dokota_newtoo.png";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import navtoggle from "../assets/toggle.svg";
 import Sidenav from "@/components/Sidenav";
 
@@ -12,22 +12,32 @@ const pageTitles = {
   "/app/approvals": "Approvals",
   "/app/users": "Users",
   "/app/settings": "Settings",
+  "/app/settings/manage-users": "Manage Users",
+  "/app/settings/notifications": "Notifications",
+  "/app/settings/reports": "Reports",
   "/app/hidden-page": "",
 };
 
 const Dashboard = () => {
   const [showSideBar, setShowSideBar] = React.useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
   const userName = "Philip Boateng";
   const userRole = "Super Administrator";
 
   const pageTitle = pageTitles[location.pathname] ?? "";
+  const isSettingsSubpage = location.pathname.startsWith("/app/settings/");
   const isDashboardActive = location.pathname === "/app/dashboard";
   const isPaymentsActive = location.pathname === "/app/payments";
   const isApprovalsActive = location.pathname === "/app/approvals";
   const isUsersActive = location.pathname === "/app/users";
   const isSettingsActive = location.pathname === "/app/settings";
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const subpageName = isSettingsSubpage
+    ? location.pathname.split("/").pop()
+    : "";
 
   return (
     <div className="flex flex-row h-screen w-screen">
@@ -230,7 +240,29 @@ const Dashboard = () => {
             />
           </div>
           <div className="flex flex-1">
-            {pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>}
+            {isSettingsSubpage ? (
+              <div className="flex items-center gap-2 ml-4">
+                <button
+                  onClick={() => navigate("/app/settings")}
+                  className="text-gray-600 hover:text-black"
+                >
+                  <svg
+                    width="20"
+                    height="30"
+                    viewBox="0 0 1024 1024"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="black"
+                  >
+                    <path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path>
+                  </svg>
+                </button>
+                <span className="text-xl capitalize">
+                  {subpageName.replace("-", " ")}
+                </span>
+              </div>
+            ) : (
+              pageTitle && <span className="ml-4 text-xl">{pageTitle}</span>
+            )}
           </div>
 
           <div

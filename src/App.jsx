@@ -9,6 +9,9 @@ import Dashboardcontent from "./components/Dashboardcontent";
 import Approvals from "./components/Approvals";
 import UsersPage from "./components/UsersPage";
 import Settings from "./components/Settings";
+import Manageusers from "./components/Manageusers";
+import Notifications from "./components/Notifications";
+import Reports from "./components/Reports";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,7 +36,11 @@ function App() {
           <Route path="payments" element={<Payments />} />
           <Route path="approvals" element={<Approvals />} />
           <Route path="users" element={<UsersPage />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="settings" element={<Settings />}>
+            <Route path="manage-users" element={<Manageusers />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="reports" element={<Reports />} />
+          </Route>
         </Route>
       </Routes>
     </>
